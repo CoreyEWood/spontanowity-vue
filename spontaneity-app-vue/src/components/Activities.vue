@@ -18,7 +18,6 @@
           result.push(value);
         });
         // add activities from appropriate list, or all lists if anywhere
-        console.log(Object.keys(this.locations));
         for (let locationValue of Object.keys(this.locations)) {
           if ((this.location == 'anywhere' || locationValue == this.location) && locationValue != 'anywhere') {
             this.activities[locationValue].forEach((value) => {
@@ -27,11 +26,6 @@
           }
         }
         return result;
-      }
-    },
-    watch: {
-      location(value) {
-        console.log(value);
       }
     },
     data() {
