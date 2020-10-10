@@ -1,7 +1,7 @@
 <template>
-  <section>
+  <section id="inputs">
     <h2>Inputs</h2>
-    <form @submit.prevent="$emit('button-click', range, location)">
+    <form @submit.prevent="$emit('button-click', range, location, prominence, rating)">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text">Range</span>
@@ -13,10 +13,7 @@
           <span class="input-group-text">Location Type</span>
         </div>
         <select class="form-control" v-model="location">
-          <option value="anywhere">Anywhere!</option>
-          <option value="library">Library</option>
-          <option value="park">Park</option>
-          <option value="restaurant">Restaurant</option>
+          <option v-for="locationValue in Object.keys(locations)" :key="locationValue" :value="locationValue">{{ locations[locationValue] }}</option>
         </select>
       </div>
       <div class="input-group mb-3">
@@ -51,6 +48,9 @@
         prominence: 'huge',
         rating: 1,
       }
+    },
+    props: {
+      locations: Object
     }
   }
 </script>
@@ -62,5 +62,10 @@
 
   select {
     width: max-content;
+  }
+
+  .input-group-text {
+    width: 170px;
+    /* display: block; */
   }
 </style>

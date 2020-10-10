@@ -1,14 +1,14 @@
 <template>
-  <div>
+  <div id="main">
     <TheHeader />
-    <p>The range is {{ range }}</p>
+    <p>The range is {{ inputs.range }}</p>
     <div class="row">
       <div class="col-6">
-        <Map :range="range" />
+        <Map :range="inputs.range" />
       </div>
       <div class="col-6">
-        <Inputs @button-click="handleButtonClick" :range="range" />
-        <Activities />
+        <Inputs @button-click="handleButtonClick" :range="inputs.range" :locations="locations" />
+        <Activities :location="inputs.location" :locations="locations" />
       </div>
     </div>
   </div>
@@ -30,13 +30,28 @@
     },
     data() {
       return {
-        range: 5,
-        location: 'anywhere',
+        inputs: {
+          range: 5,
+          location: 'anywhere',
+          prominence: 'huge',
+          rating: '1',
+        },
+        locations: { // dictionary of value name to display name
+          'anywhere': 'Anywhere!',
+          'library': 'Library',
+          'park': 'Park',
+          'restaurant': 'Restaurant',
+        },
       }
     },
     methods: {
-      handleButtonClick(range) {
-        this.range = range;
+      handleButtonClick(range, location, prominence, rating) {
+        this.inputs = {
+          range: range,
+          location: location,
+          prominence: prominence,
+          rating: rating,
+        };
       }
     }
   }
