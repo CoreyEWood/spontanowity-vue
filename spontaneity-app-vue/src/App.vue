@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <Main />
-  </div>
+  <Main />
 </template>
 
 <script>
@@ -22,14 +20,16 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
   }
 
   section {
-    margin: 2rem auto;
-    max-width: 30rem;
+    margin: 2rem;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
     padding: 1rem;
+  }
+
+  body {
+    background-color: yellow;
   }
 </style>

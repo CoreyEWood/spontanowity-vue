@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h1>Map</h1>
+    <h2>Map</h2>
     <p>The range for the map is {{ range }}</p>
   </section>
 </template>
@@ -8,10 +8,14 @@
 <script>
   export default {
     name: 'Map',
-    props: ['range']
+    props: {
+      range: Number
+    }
   }
 </script>
 
-<style>
-
+<style scoped>
+  section {
+    margin-right: 0px;
+  }
 </style>
