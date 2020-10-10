@@ -1,7 +1,6 @@
 <template>
   <div id="main">
     <TheHeader />
-    <p>The range is {{ inputs.range }}</p>
     <div class="row">
       <div class="col-6">
         <Map :range="inputs.range" />
@@ -11,6 +10,12 @@
         <Activities :location="inputs.location" :locations="locations" />
       </div>
     </div>
+    <!-- For debugging -->
+    <section style="background-color: white;">
+      <h2>Debugging info</h2>
+      <p>Inputs: {{ inputs }}</p>
+      <p>locations: {{ locations }}</p>
+    </section>
   </div>
 </template>
 
