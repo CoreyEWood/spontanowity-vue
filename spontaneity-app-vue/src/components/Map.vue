@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section id="map">
     <h2>Map</h2>
     <p>The range for the map is {{ range }}</p>
   </section>

@@ -32,4 +32,10 @@
   body {
     background-color: yellow;
   }
+
+  #map,
+  #activities,
+  #inputs {
+    background-color: white;
+  }
 </style>
