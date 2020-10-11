@@ -95,7 +95,6 @@
           let type;
           if (this.inputs['location'] !== "anywhere") {
             type = this.inputs['location'];
-            console.log('location is not anywhere');
           }
 
           const request = {
@@ -108,7 +107,7 @@
           counter += 500;
         }
 
-        let fields = ['url', 'name', 'photos'];
+        let fields = ['url', 'name', 'type'];
 
         let randInt = getRandomInt(nearbyPlaces.length);
         let newRandomPlace = nearbyPlaces[randInt];
@@ -143,7 +142,7 @@
         let minZoom;
 
         if (this.inputs['range'] <= 3) {
-          minZoom = 10;
+          minZoom = 11;
         } else if (this.inputs['range'] <= 8) {
           minZoom = 11;
         } else if (this.inputs['range'] <= 10) {
