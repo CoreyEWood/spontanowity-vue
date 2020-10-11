@@ -1,7 +1,14 @@
 <template>
   <section id="activities">
     <h2>Your Location:</h2>
-    <p>You'll be going to a {{ location }}! </p>
+    <div v-if="location">
+      <p>You'll be going to {{ location }}! </p>
+      <a :href="url" target="_blank">Go to Google Maps!</a>
+    </div>
+    <div v-else>
+      <p>Generating your random location...</p>
+    </div>
+    
     <br>
     <h2 id="secondHeading">Your Activity:</h2>
     <p>{{ activityResult }}</p>
@@ -61,7 +68,8 @@
     },
     props: {
       location: String,
-      locations: Object
+      locations: Object,
+      url: String,
     }
   }
 </script>

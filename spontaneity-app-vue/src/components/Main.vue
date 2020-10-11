@@ -14,7 +14,7 @@
         </section>
       </div>
       <div class="col-6">
-        <Activities :location="chosenLocation" :locations="locations" />
+        <Activities :location="nearbyPlaceDetails.name" :url="nearbyPlaceDetails.url" :locations="locations" />
         <Inputs @button-click="handleButtonClick" :locations="locations" />
       </div>
     </div>
@@ -74,7 +74,7 @@
     mounted() {
       this.setPosition();
       setTimeout(this.renderMap,500);
-      setTimeout(this.setRandomPlace,500);
+      setTimeout(this.setRandomPlace,1000);
     },
     methods: {
       // back-end methods
@@ -114,9 +114,9 @@
 
           counter ++;
           console.log(counter)
-          if (counter > 100) {
+          if (counter > 150) {
             console.log('resetting counter');
-            radius += 500;
+            radius += 1500;
             counter = 0;
           }
         }
@@ -125,6 +125,11 @@
 
         let randInt = getRandomInt(nearbyPlaces.length);
         let newRandomPlace = nearbyPlaces[randInt];
+
+        while (newRandomPlace.type !== 'library' || newRandomPlace.type !== 'restaurant' || newRandomPlace.type !== 'park') {
+            getRandomInt(nearbyPlaces.length);
+            newRandomPlace = nearbyPlaces[randInt];
+        }
 
         let detailsDict = await this.getPlaceDetails(newRandomPlace, fields);
 
@@ -156,13 +161,13 @@
 
         let minZoom;
 
-        if (this.inputs['range'] <= 3) {
+        if (this.inputs['maxRange'] <= 3) {
           minZoom = 11;
-        } else if (this.inputs['range'] <= 8) {
+        } else if (this.inputs['maxRange'] <= 8) {
           minZoom = 11;
-        } else if (this.inputs['range'] <= 10) {
+        } else if (this.inputs['maxRange'] <= 10) {
           minZoom = 10;
-        } else if (this.inputs['range'] <= 12) {
+        } else if (this.inputs['maxRange'] <= 12) {
           minZoom = 9;
         } else {
           minZoom = 6;
@@ -171,6 +176,8 @@
         this.map.setZoom(zoom < minZoom ? minZoom : zoom);
 
         this.map.setCenter(center);
+
+        console.log(this.map.getZoom());
       },
       getDetailsAsPromise(request) {
         return new Promise((resolve) => {
@@ -244,7 +251,6 @@
             lng: this.userPosition['lng']
           },
           zoom: 15,
-          // minZoom: 10,
         }
       },
       chosenLocation: function () {
