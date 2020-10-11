@@ -40,7 +40,7 @@
         </div>
         <input type="number" class="form-control" min="1" max="5" v-model="rating">
       </div> -->
-      <button class="btn btn-success m-2">Enter</button>
+      <button class="btn btn-success m-2">Generate</button>
     </form>
   </section>
 </template>

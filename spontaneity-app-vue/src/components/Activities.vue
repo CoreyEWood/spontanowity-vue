@@ -1,8 +1,9 @@
 <template>
   <section id="activities">
     <h2>Your Location:</h2>
-    <div v-if="location">
-      <p>You'll be going to {{ location }}! </p>
+    <div v-if="name">
+      <p>You'll be going to {{ name }}!</p>
+      <p>{{ address }}</p>
       <a :href="url" target="_blank">Go to Google Maps!</a>
     </div>
     <div v-else>
@@ -41,35 +42,36 @@
       return {
         activities: {
           general: [
-            'Say hi to the first person you see',
-            'Do a flip, bro'
+            'Say hi to the first person you see!',
           ],
           library: [
-            'Check out a book',
-            'Ask the librarian to recommend a book',
-            'Read a book on South American history',
-            "Study in the library's reading room",
+            'Check out a book!',
+            'Ask the librarian to recommend a book!',
+            'Read a book on South American history!',
+            "Study in the library's reading room!",
           ],
           park: [
-            'Have a picnic',
-            'Go for a walk',
-            'Birdwatch',
-            'Try to identify tree species',
-            'Play hide and go seek'
+            'Have a picnic!',
+            'Go for a walk!',
+            'Do some birdwatching!',
+            'Try to identify tree species!',
+            'Play hide and go seek!'
           ],
           restaurant: [
-            'Eat only appetizers',
-            'Order every dessert',
-            'Get something vegetarian',
-            'Order the 5th thing on the menu'
+            'Eat only appetizers!',
+            'Order every dessert!',
+            'Get something vegetarian!',
+            'Order the 5th thing on the menu!'
           ],
         },
       }
     },
     props: {
+      name: String,
       location: String,
       locations: Object,
       url: String,
+      address: String,
     }
   }
 </script>

@@ -14,16 +14,16 @@
         </section>
       </div>
       <div class="col-6">
-        <Activities :location="nearbyPlaceDetails.name" :url="nearbyPlaceDetails.url" :locations="locations" />
+        <Activities :location="chosenLocation" :name="nearbyPlaceDetails.name" :url="nearbyPlaceDetails.url" :address="nearbyPlaceDetails.formatted_address" :locations="locations" />
         <Inputs @button-click="handleButtonClick" :locations="locations" />
       </div>
     </div>
     <!-- For debugging -->
-    <section>
+    <!-- <section>
       <h2>Debugging info</h2>
       <p>Inputs: {{ inputs }}</p>
       <p>locations: {{ locations }}</p>
-    </section>
+    </section> -->
   </div>
 </template>
 
@@ -57,6 +57,7 @@
         userMarker: null,
         userPosition: {},
         // front-end data
+        // chosenLocation: String,
         inputs: {
           maxRange: 3,
           minRange: 1,
@@ -96,13 +97,10 @@
         let radius = 1500;
 
         while (!nearbyPlaces || !nearbyPlaces.length) {
-          console.log('trying to get random position');
           // get random position
           let latLngDict = this.getRandomPosition(milesToMeters(this.inputs['minRange']), milesToMeters(this.inputs['maxRange']));
 
           let type = this.chosenLocation;
-
-          console.log(radius);
 
           const request = {
             location: new window.google.maps.LatLng(latLngDict['lat'], latLngDict['lng']),
@@ -113,23 +111,21 @@
           nearbyPlaces = await this.nearbySearchAsPromise(request);
 
           counter ++;
-          console.log(counter)
           if (counter > 150) {
-            console.log('resetting counter');
             radius += 1500;
             counter = 0;
           }
         }
 
-        let fields = ['url', 'name', 'type'];
+        let fields = ['url', 'name', 'type', 'formatted_address'];
 
         let randInt = getRandomInt(nearbyPlaces.length);
         let newRandomPlace = nearbyPlaces[randInt];
 
-        while (!newRandomPlace.types.includes('library') || !newRandomPlace.types.includes('restaurant') || !newRandomPlace.types.includes('park')) {
-            getRandomInt(nearbyPlaces.length);
-            newRandomPlace = nearbyPlaces[randInt];
-        }
+        // while (!newRandomPlace.types.includes('library') && !newRandomPlace.types.includes('restaurant') && !newRandomPlace.types.includes('park')) {
+        //     getRandomInt(nearbyPlaces.length);
+        //     newRandomPlace = nearbyPlaces[randInt];
+        // }
 
         let detailsDict = await this.getPlaceDetails(newRandomPlace, fields);
 
@@ -162,7 +158,7 @@
         let minZoom;
 
         if (this.inputs['maxRange'] <= 3) {
-          minZoom = 11;
+          minZoom = 10;
         } else if (this.inputs['maxRange'] <= 8) {
           minZoom = 11;
         } else if (this.inputs['maxRange'] <= 10) {
@@ -176,8 +172,6 @@
         this.map.setZoom(zoom < minZoom ? minZoom : zoom);
 
         this.map.setCenter(center);
-
-        console.log(this.map.getZoom());
       },
       getDetailsAsPromise(request) {
         return new Promise((resolve) => {
@@ -263,7 +257,7 @@
         else {
           return this.inputs.location;
         }
-      }
+      },
     }
   };
 </script>
