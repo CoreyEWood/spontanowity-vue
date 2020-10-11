@@ -70,3 +70,11 @@ export function pointInCircle(coord, minDistance, maxDistance) {
 export function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
+
+export function metersToMiles(m) {
+  return m*0.000621371192;
+}
+
+export function milesToMeters(m) {
+  return m*1609.344;
+}
