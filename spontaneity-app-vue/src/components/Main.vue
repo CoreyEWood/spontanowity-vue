@@ -2,8 +2,12 @@
   <div id="main">
     <TheHeader />
     <div class="row">
-      <div class="col-6" id="map" ref="map">
-        <!-- <Map :range="inputs.range" /> -->
+      <div class="col-6">
+        <section>
+          <div id="map" ref="map" class="w-auto">
+            <!-- <Map :range="inputs.range" /> -->
+          </div>
+        </section>
       </div>
       <div class="col-6">
         <Inputs @button-click="handleButtonClick" :range="inputs.range" :locations="locations" />
@@ -25,8 +29,13 @@
   // import Map from "./Map.vue";
   import TheHeader from "./TheHeader.vue";
 
-  import { pointInCircle, getRandomInt } from '../helpers.js';
-  import { config } from '../config.js';
+  import {
+    pointInCircle,
+    getRandomInt
+  } from '../helpers.js';
+  import {
+    config
+  } from '../config.js';
 
   export default {
     name: "Main",
@@ -63,15 +72,17 @@
         },
       };
     },
-    mounted () {
+    mounted() {
       this.setPosition();
-      setTimeout(this.renderMap,500);
+      setTimeout(this.renderMap, 500);
     },
     methods: {
       // back-end methods
       nearbySearchAsPromise(request) {
         return new Promise((resolve) => {
-          this.service.nearbySearch(request, (data) => { resolve(data); });
+          this.service.nearbySearch(request, (data) => {
+            resolve(data);
+          });
         });
       },
       async setRandomPlace() {
@@ -91,14 +102,14 @@
           console.log(type);
 
           const request = {
-            location: new window.google.maps.LatLng(latLngDict['lat'],latLngDict['lng']),
+            location: new window.google.maps.LatLng(latLngDict['lat'], latLngDict['lng']),
             radius: '10000', // radius in which to look for a place near the random location
             type: type
           };
           nearbyPlaces = await this.nearbySearchAsPromise(request);
         }
 
-        let fields = ['url','name'];
+        let fields = ['url', 'name'];
 
         // below code goes into while loop to check for user inputted conditions
         // make sure is open now for relevant places
@@ -112,7 +123,9 @@
       },
       getDetailsAsPromise(request) {
         return new Promise((resolve) => {
-          this.service.getDetails(request, (data) => { resolve(data); });
+          this.service.getDetails(request, (data) => {
+            resolve(data);
+          });
         });
       },
       async getPlaceDetails(place, fields) {
@@ -129,20 +142,34 @@
         return detailsDict;
       },
       getRandomPosition() {
-        let randResult = pointInCircle({'latitude':this.userPosition['lat'],
-          'longitude':this.userPosition['lng']},this.minRadius,this.inputs['range']);
+        let randResult = pointInCircle({
+          'latitude': this.userPosition['lat'],
+          'longitude': this.userPosition['lng']
+        }, this.minRadius, this.inputs['range']);
         this.randLatValue = randResult.latitude;
         this.randLongValue = randResult.longitude;
-        return {'lat': randResult.latitude, 'lng': randResult.longitude};
+        return {
+          'lat': randResult.latitude,
+          'lng': randResult.longitude
+        };
       },
       setPosition() {
         navigator.geolocation.getCurrentPosition((p) => {
-          this.userPosition = {'lat': p.coords.latitude, 'lng': p.coords.longitude}
+          this.userPosition = {
+            'lat': p.coords.latitude,
+            'lng': p.coords.longitude
+          }
         });
       },
       renderMap() {
         this.map = new window.google.maps.Map(this.$refs.map, this.mapConfig);
-        new window.google.maps.Marker({position: {lat: this.userPosition['lat'], lng: this.userPosition['lng']}, map: this.map});
+        new window.google.maps.Marker({
+          position: {
+            lat: this.userPosition['lat'],
+            lng: this.userPosition['lng']
+          },
+          map: this.map
+        });
         this.service = new window.google.maps.places.PlacesService(this.map);
       },
       // front-end methods
@@ -157,12 +184,15 @@
       },
     },
     computed: {
-      isGeolocation: function () {
+      isGeolocation: function() {
         return 'geolocation' in navigator;
       },
       mapConfig: function() {
         return {
-          center: { lat: this.userPosition['lat'], lng: this.userPosition['lng'] },
+          center: {
+            lat: this.userPosition['lat'],
+            lng: this.userPosition['lng']
+          },
           zoom: 15,
         }
       },
