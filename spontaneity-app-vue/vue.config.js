@@ -1,4 +1,4 @@
 module.exports = {
-  publicPath: '/spontanowity-vue',
+  publicPath: '/spontanowity-vue/',
   outputDir: '../spontanowity-vue'
 }
