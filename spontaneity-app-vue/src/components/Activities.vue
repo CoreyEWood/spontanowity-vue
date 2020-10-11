@@ -1,17 +1,19 @@
 <template>
   <section id="activities">
-    <h2>Activities</h2>
-    <ul>
-      <li v-for="activity in activitiesList" :key="activity">{{ activity }}</li>
-    </ul>
+    <h2>Your Location:</h2>
+    <p>You'll be going to a {{ location }}! </p>
+    <br>
+    <h2 id="secondHeading">Your Activity:</h2>
+    <p>{{ activityResult }}</p>
   </section>
 </template>
 
 <script>
+  import { getRandomInt } from '../helpers.js';
   export default {
     name: 'Activities',
     computed: {
-      activitiesList() {
+      activityResult() {
         const result = [];
         // add all the general activities
         this.activities.general.forEach((value) => {
@@ -25,7 +27,7 @@
             });
           }
         }
-        return result;
+        return result[getRandomInt(result.length)];
       }
     },
     data() {
@@ -36,19 +38,23 @@
             'Do a flip, bro'
           ],
           library: [
-            'Read a book',
-            'Ask the librarian why she is so old',
-            'Make out in the stacks',
+            'Check out a book',
+            'Ask the librarian to recommend a book',
+            'Read a book on South American history',
+            "Study in the library's reading room",
           ],
           park: [
             'Have a picnic',
             'Go for a walk',
             'Birdwatch',
-            'Look at trees',
+            'Try to identify tree species',
             'Play hide and go seek'
           ],
           restaurant: [
-            'Eat something'
+            'Eat only appetizers',
+            'Order every dessert',
+            'Get something vegetarian',
+            'Order the 5th thing on the menu'
           ],
         },
       }
@@ -62,7 +68,17 @@
 
 <style scoped>
   section {
+    margin-bottom: 50px;
     margin-left: 0px;
+  }
+
+  p {
+    margin-bottom: 0.25em;
+    margin-top: 0.25em
+  }
+
+  h2 {
+    margin-top: 0.25em;
   }
 
   ul {

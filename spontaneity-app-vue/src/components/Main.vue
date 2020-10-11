@@ -1,16 +1,21 @@
 <template>
   <div id="main" class="container-fluid">
     <TheHeader />
+    <!-- <div class="row justify-content-center">
+      <div class="col-12">
+      </div>
+    </div> -->
     <div class="row">
       <div class="col-6">
         <section>
           <div class="w-auto" id="map" ref="map">
+            <!-- Map inserted here -->
           </div>
         </section>
       </div>
       <div class="col-6">
-        <Inputs @button-click="handleButtonClick" :range="inputs.range" :locations="locations" />
-        <Activities :location="inputs.location" :locations="locations" />
+        <Activities :location="chosenLocation" :locations="locations" />
+        <Inputs @button-click="handleButtonClick" :locations="locations" />
       </div>
     </div>
     <!-- For debugging -->
@@ -40,14 +45,15 @@
         // back-end data
         apiKey: config['api-key'],
         map: null,
-        maxRadius: 4800, // radius values in meters
         minRadius: 800,
-        nearbyPlaceDetails: {},
+        maxRadius: 4800, // radius values in meters
+        nearbyPlaceDetails: {}, // types -> Array of types: nearbyPlaceDetails.types => ['library']
         service: null,
         userPosition: {},
         // front-end data
         inputs: {
-          range: 10000,
+          minRange: 5,
+          maxRange: 15000,
           location: "anywhere",
           prominence: "huge",
           rating: "1",
@@ -64,6 +70,7 @@
     mounted () {
       this.setPosition();
       setTimeout(this.renderMap,500);
+      setTimeout(this.setRandomPlace,500);
     },
     methods: {
       // back-end methods
@@ -80,7 +87,8 @@
           // console.log(latLngDict);
           let type;
           if (this.inputs['location'] !== 'anywhere') {
-            type = this.inputs['location'];
+            // type = this.inputs['location'];
+            type = this.chosenLocation;
           }
           console.log(type);
           const request = {
@@ -90,13 +98,15 @@
           };
           nearbyPlaces = await this.nearbySearchAsPromise(request);
         }
-        let fields = ['url','name'];
+        let fields = ['url','name','type'];
         // below code goes into while loop to check for user inputted conditions
         // make sure is open now for relevant places
         let randInt = getRandomInt(nearbyPlaces.length);
         let newRandomPlace = nearbyPlaces[randInt];
         let detailsDict = await this.getPlaceDetails(newRandomPlace, fields);
+
         this.nearbyPlaceDetails = detailsDict;
+        console.log('just set random place');
       },
       getDetailsAsPromise(request) {
         return new Promise((resolve) => {
@@ -116,7 +126,7 @@
       },
       getRandomPosition() {
         let randResult = pointInCircle({'latitude':this.userPosition['lat'],
-          'longitude':this.userPosition['lng']},this.minRadius,this.inputs['range']);
+          'longitude':this.userPosition['lng']},this.minRadius,this.maxRadius);
         this.randLatValue = randResult.latitude;
         this.randLongValue = randResult.longitude;
         return {'lat': randResult.latitude, 'lng': randResult.longitude};
@@ -132,9 +142,10 @@
         this.service = new window.google.maps.places.PlacesService(this.map);
       },
       // front-end methods
-      handleButtonClick(range, location, prominence, rating) {
+      handleButtonClick(minRange, maxRange, location, prominence, rating) {
         this.inputs = {
-          range: range,
+          minRange: minRange,
+          maxRange: maxRange,
           location: location,
           prominence: prominence,
           rating: rating,
@@ -152,6 +163,17 @@
           zoom: 15,
         }
       },
+      chosenLocation: function () {
+        if (this.inputs.location == 'anywhere') {
+          // randomize another location (i.e library)
+          const availLocations = Object.keys(this.locations);
+          availLocations.shift();
+          return availLocations[getRandomInt(availLocations.length)]
+        } 
+        else {
+          return this.inputs.location;
+        }
+      }
     }
   };
 </script>
@@ -183,9 +205,10 @@
     color: white; */
   }
   #map {
-    height: 600px;
+    height: 550px;
     width: 600px;
     margin: auto;
+    margin-right: 0px;
     background: gray;
   }
   /* #heading {
