@@ -126,7 +126,7 @@
         let randInt = getRandomInt(nearbyPlaces.length);
         let newRandomPlace = nearbyPlaces[randInt];
 
-        while (newRandomPlace.type !== 'library' || newRandomPlace.type !== 'restaurant' || newRandomPlace.type !== 'park') {
+        while (!newRandomPlace.types.includes('library') || !newRandomPlace.types.includes('restaurant') || !newRandomPlace.types.includes('park')) {
             getRandomInt(nearbyPlaces.length);
             newRandomPlace = nearbyPlaces[randInt];
         }
