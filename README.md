@@ -1,3 +1,5 @@
+Link to GitHub repository: https://github.com/CoreyEWood/spontanowity-vue
+
 ## Inspiration
 We’ve often had the desire to do something spontaneous and fun, but have always had trouble finding something to do! We wanted to design a tool that assists people with finding fun and convenient activities. Since so many people are stuck at home and bored during this time, 
 we thought it would be fun to have a website that gives you a place to go to and a thing to do at that place (while staying safe, of course!) . 
