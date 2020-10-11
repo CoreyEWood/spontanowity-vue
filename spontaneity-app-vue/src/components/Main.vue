@@ -125,7 +125,8 @@
           title: this.nearbyPlaceDetails['name'],
         });
 
-
+        // here is a new comment
+        
         let latLngUser = new window.google.maps.LatLng(this.userPosition['lat'], this.userPosition['lng']);
         let latLngRandom = new window.google.maps.LatLng(newRandomPlace.geometry.location.lat(), newRandomPlace.geometry.location.lng());
 
