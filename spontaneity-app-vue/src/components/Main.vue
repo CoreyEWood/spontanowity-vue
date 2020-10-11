@@ -87,24 +87,38 @@
           this.renderMap();
         }
         let nearbyPlaces;
+
         let counter = 0;
+
+        let radius = 1500;
+
         while (!nearbyPlaces || !nearbyPlaces.length) {
+          console.log('trying to get random position');
           // get random position
-          let latLngDict = this.getRandomPosition(this.minRadius + counter, milesToMeters(this.inputs['range']) + counter);
+          let latLngDict = this.getRandomPosition(this.minRadius, milesToMeters(this.inputs['range']));
 
           let type;
           if (this.inputs['location'] !== "anywhere") {
             type = this.inputs['location'];
           }
 
+          console.log(radius);
+
           const request = {
             location: new window.google.maps.LatLng(latLngDict['lat'], latLngDict['lng']),
-            radius: '800', // radius in which to look for a place near the random location
+            radius: radius, // radius in which to look for a place near the random location
             type: type
           };
 
           nearbyPlaces = await this.nearbySearchAsPromise(request);
-          counter += 500;
+
+          counter ++;
+          console.log(counter)
+          if (counter > 100) {
+            console.log('resetting counter');
+            radius += 500;
+            counter = 0;
+          }
         }
 
         let fields = ['url', 'name', 'type'];
