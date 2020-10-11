@@ -50,11 +50,9 @@
     name: 'Inputs',
     data() {
       return {
-        minRange: 5,
-        maxRange: 15000,
+        maxRange: 3,
+        minRange: 1,
         location: 'anywhere',
-        prominence: 'huge',
-        rating: 1,
       }
     },
     methods: {
@@ -70,7 +68,7 @@
         if (this.maxRange <= this.minRange + 1 || this.maxRange === '') {
           this.maxRange = this.minRange + 1;
         }
-        this.$emit('button-click', this.minRange, this.maxRange, this.location, this.prominence, this.rating)
+        this.$emit('button-click', this.minRange, this.maxRange, this.location)
       },
     },
     props: {
