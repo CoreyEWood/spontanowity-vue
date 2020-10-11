@@ -11,7 +11,7 @@
       </div>
     </div>
     <!-- For debugging -->
-    <section style="background-color: white;">
+    <section>
       <h2>Debugging info</h2>
       <p>Inputs: {{ inputs }}</p>
       <p>locations: {{ locations }}</p>
@@ -20,34 +20,35 @@
 </template>
 
 <script>
-  import Activities from './Activities.vue'
-  import Inputs from './Inputs.vue'
-  import Map from './Map.vue'
-  import TheHeader from './TheHeader.vue'
+  import Activities from "./Activities.vue";
+  import Inputs from "./Inputs.vue";
+  import Map from "./Map.vue";
+  import TheHeader from "./TheHeader.vue";
 
   export default {
-    name: 'Main',
+    name: "Main",
     components: {
       Activities,
       Inputs,
       Map,
-      TheHeader
+      TheHeader,
     },
     data() {
       return {
         inputs: {
           range: 5,
-          location: 'anywhere',
-          prominence: 'huge',
-          rating: '1',
+          location: "anywhere",
+          prominence: "huge",
+          rating: "1",
         },
-        locations: { // dictionary of value name to display name
-          'anywhere': 'Anywhere!',
-          'library': 'Library',
-          'park': 'Park',
-          'restaurant': 'Restaurant',
+        locations: {
+          // dictionary of value name to display name
+          anywhere: "Anywhere!",
+          library: "Library",
+          park: "Park",
+          restaurant: "Restaurant",
         },
-      }
+      };
     },
     methods: {
       handleButtonClick(range, location, prominence, rating) {
@@ -57,18 +58,29 @@
           prominence: prominence,
           rating: rating,
         };
-      }
-    }
-  }
+      },
+    },
+  };
 </script>
 
 <style>
+  body {
+    background-color: yellow;
+  }
+
   #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    /* font-family: Avenir, Helvetica, Arial, sans-serif; */
+    /* -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; */
     text-align: center;
-    color: #2c3e50;
+    /* color: #303030; */
+    color: #505050;
+  }
+
+  h1,
+  h2 {
+    font-family: "Arial Black", Gadget, sans-serif
   }
 
   section {
@@ -76,15 +88,32 @@
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
     padding: 1rem;
-  }
-
-  body {
-    background-color: yellow;
-  }
-
-  #map,
-  #activities,
-  #inputs {
     background-color: white;
+    /* background-color: #303030;
+    color: white; */
   }
+
+  /* #heading {
+    background-color: white;
+  } */
+
+  /* section h2 {
+    background-color: white;
+    color: #303030;
+    border-radius: 3px;
+    padding: 0.2em;
+    width: fit-content;
+  } */
+
+  /* section p {
+    color: white;
+  } */
+
+  /* 
+  #05386b
+  #379683
+  #5cdb95
+  #8ee4af
+  #edf5e1
+   */
 </style>

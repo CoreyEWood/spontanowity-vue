@@ -4,7 +4,7 @@
       <h1 class="mt-3">Spontanowity</h1>
       <p>Explore new places!</p>
     </div>
-    <div id="dropdown-description" class=" col-2">
+    <!-- <div id="dropdown-description" class=" col-2">
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           What even is this thing?
@@ -26,7 +26,7 @@
           <a class="dropdown-item" href="https://hackathome.org/">hack@home</a>
         </div>
       </div>
-    </div>
+    </div> -->
   </header>
 </template>
 

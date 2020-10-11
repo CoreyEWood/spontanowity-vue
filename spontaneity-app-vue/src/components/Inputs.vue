@@ -4,7 +4,7 @@
     <form @submit.prevent="$emit('button-click', range, location, prominence, rating)">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text">Range</span>
+          <span class="input-group-text">Range (mi)</span>
         </div>
         <input type="number" class="form-control" placeholder="How many miles away are you willing to travel?" v-model="range">
       </div>

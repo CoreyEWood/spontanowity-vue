@@ -36,13 +36,19 @@
             'Do a flip, bro'
           ],
           library: [
-            'Library'
+            'Read a book',
+            'Ask the librarian why she is so old',
+            'Make out in the stacks',
           ],
           park: [
-            'Park'
+            'Have a picnic',
+            'Go for a walk',
+            'Birdwatch',
+            'Look at trees',
+            'Play hide and go seek'
           ],
           restaurant: [
-            'Restaurant'
+            'Eat something'
           ],
         },
       }
