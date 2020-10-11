@@ -43,7 +43,7 @@
     name: 'Inputs',
     data() {
       return {
-        range: 5,
+        range: 10000,
         location: 'anywhere',
         prominence: 'huge',
         rating: 1,
