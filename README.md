@@ -1,6 +1,6 @@
 Link to GitHub repository: https://github.com/CoreyEWood/spontanowity-vue
 
-## Project for Hack at Home Hackathon, Fall 2020
+## Project for Hack@Home Hackathon, Fall 2020
 
 ## Inspiration
 We’ve often had the desire to do something spontaneous and fun, but have always had trouble finding something to do! We wanted to design a tool that assists people with finding fun and convenient activities. Since so many people are stuck at home and bored during this time, 
